@@ -85,9 +85,9 @@
       <div id="keys">
         <div id="numbers">
           <!-- inline javascript just for practice purposes, Document.querySelector() is preferred. No ids, because we do direct function calls with parameters passed by value and later converted into Strings and back to Number-->
-          <div onclick="onClickNumber(7)">9</div>
+          <div onclick="onClickNumber(7)">7</div>
           <div onclick="onClickNumber(8)">8</div>
-          <div onclick="onClickNumber(9)">7</div>
+          <div onclick="onClickNumber(9)">9</div>
           <div onclick="onClickNumber(4)">4</div>
           <div onclick="onClickNumber(5)">5</div>
           <div onclick="onClickNumber(6)">6</div>
@@ -141,6 +141,10 @@
 
       //Put clicked Operator in display in #operators Container (20% width)
       function onClickOperator(CO) {
+        // I TRIED TO FX UNNECESSARY CALCULATIONS AND UNDEFINED FOR 2 TIMES CLICKING ON /. WILL HAVE TO DIVE IN
+        // if (Memory === undefined && CO === myOperator.value) {
+        //   myOperator.value = CO;
+
         if (Memory === undefined) {
           //I make a statement to set Memory equal to the value for the Clicked Operator and store the Memory as a Number with Unary Operator.
           // Unary operators are more efficient than standard JavaScript function calls. Additionally, unary operators can not be overridden, therefore their functionality is guaranteed > In this case string data type is converted into a Number
@@ -156,7 +160,7 @@
         }
         // Always Show Operator used in operator display
         myOperator.value = CO;
-        console.log(myOperator.value);
+
         // Always Assign value for Action to be equal to CO that has been initialized globally.
         Action = CO;
         // Check if Memory is  Undefined and if true, set Memory
@@ -197,8 +201,6 @@
           myInput.value = realMem.times(myValue).valueOf();
         } else if (Action === '/') {
           myInput.value = realMem.div(myValue).valueOf();
-        } else {
-          return myInput.value;
         }
         Memory = undefined;
       }
