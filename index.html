@@ -87,7 +87,7 @@
           <!-- inline javascript just for practice purposes, Document.querySelector() is preferred. No ids, because we do direct function calls with parameters passed by value and later converted into Strings and back to Number-->
           <div onclick="onClickNumber(7)">9</div>
           <div onclick="onClickNumber(8)">8</div>
-          <div onclick="onClickNumber(9)">9</div>
+          <div onclick="onClickNumber(9)">7</div>
           <div onclick="onClickNumber(4)">4</div>
           <div onclick="onClickNumber(5)">5</div>
           <div onclick="onClickNumber(6)">6</div>
@@ -162,7 +162,7 @@
         // Check if Memory is  Undefined and if true, set Memory
       }
 
-      // If I cancel
+      // If I use backspace and Operator.value is not equals sign, make shallow copy of myInput.value without last value, so last value is removed. Remove Operator display
       function backSpace() {
         if (myOperator.value != '=') {
           myInput.value = myInput.value.slice(0, -1);
@@ -170,6 +170,7 @@
         }
       }
 
+      // If I use Cancel, remove everything and clear Memory
       function onClickCancel() {
         myInput.value = '';
         myOperator.value = '';
@@ -177,12 +178,15 @@
         myInput.placeholder = 0;
       }
 
+      // For calculation, wait for equals sign and use big number library because of JavaScript’s 64 bit Number type compression, causing unsatisfying result. Bignumber should make calculating for Money also a valid option.
       function onClickEquals(Makes) {
+        // If = was already clicked, just return myInput.value. In an updated version I will make sure that pressing = again repeats the previous calculation
         if (myOperator.value === '=') {
           return myInput.value;
         }
         let myValue = +myInput.value;
         let realMem = new Big(Memory);
+        // Set operator display equal to =
         myOperator.value = Makes;
 
         if (Action === '+') {
@@ -193,6 +197,8 @@
           myInput.value = realMem.times(myValue).valueOf();
         } else if (Action === '/') {
           myInput.value = realMem.div(myValue).valueOf();
+        } else {
+          return myInput.value;
         }
         Memory = undefined;
       }
