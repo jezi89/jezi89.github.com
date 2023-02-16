@@ -116,12 +116,16 @@
       const myOperator = document.getElementById('operator');
       // Initialize Action and Memory
       let Action = '';
-      let Memory = 0;
+      let Memory = undefined;
 
       //Put clicked Number in display in #numbers container (80% width)
       function onClickNumber(CN) {
         // If Statement to Check if myInput converted to String is any of these values, if so replace myInput.value with Clicked Number. const does not restrict change of Object properties.
-        if (
+        if (myOperator.value === '=') {
+          console.log(myOperator.value);
+          myOperator.value = '';
+          myInput.value = CN;
+        } else if (
           (myInput.value === '' && Memory != undefined) ||
           myInput.value === '0' ||
           (myOperator.value != '' && Memory != undefined)
@@ -148,12 +152,7 @@
         // I TRIED TO FX UNNECESSARY CALCULATIONS AND UNDEFINED FOR 2 TIMES CLICKING ON /. WILL HAVE TO DIVE IN
         // if (Memory === undefined && CO === myOperator.value) {
         //   myOperator.value = CO;
-        // Always Show Operator used in operator display
-        myOperator.value = CO;
 
-        // Always Assign value for Action to be equal to CO that has been initialized globally.
-        Action = CO;
-        // Check if Memory is  Undefined and if true, set Memory
         if (Memory === undefined) {
           //I make a statement to set Memory equal to the value for the Clicked Operator and store the Memory as a Number with Unary Operator.
           // Unary operators are more efficient than standard JavaScript function calls. Additionally, unary operators can not be overridden, therefore their functionality is guaranteed > In this case string data type is converted into a Number
@@ -165,8 +164,14 @@
           myInput.placeholder = Memory;
           // If Memory is not undefined, skip steps above and take operator for an equals sign, by invoking onClickEquals
         } else {
-          onClickEquals(x);
+          onClickEquals();
         }
+        // Always Show Operator used in operator display
+        myOperator.value = CO;
+
+        // Always Assign value for Action to be equal to CO that has been initialized globally.
+        Action = CO;
+        // Check if Memory is  Undefined and if true, set Memory
       }
 
       // If I use backspace and Operator.value is not equals sign, make shallow copy of myInput.value without last value, so last value is removed. Remove Operator display
